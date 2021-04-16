@@ -48,25 +48,25 @@ def get_previous_trade_cal(end_date=''):
     return trade_date_list[0]
 
 
-def pretty_print_all(stock_merge_data_frame):
+def pretty_print_all(stock_merge_data_frame, number):
     sorted_df_all = stock_merge_data_frame.sort_values(by='amount_difference_absolute', ascending=False)
     sorted_df_inflow = sorted_df_all[sorted_df_all.amount_difference > 0]
     sorted_df_outflow = sorted_df_all[sorted_df_all.amount_difference < 0]
     print("\n\n")
     print("===" * 5 + "根据净变动成交量降序" + "===" * 5)
-    print(format_data_frame(sorted_df_all))
+    print(format_data_frame(sorted_df_all, number))
     # format_data_frame(sorted_df_all).plot()
     # plt.show()
     print("\n\n")
     print("===" * 5 + "根据成交量净增加降序" + "===" * 5)
-    print(format_data_frame(sorted_df_inflow))
+    print(format_data_frame(sorted_df_inflow, number))
     print("\n\n")
     print("===" * 5 + "根据成交量净减少降序" + "===" * 5)
-    print(format_data_frame(sorted_df_outflow))
+    print(format_data_frame(sorted_df_outflow, number))
 
 
-def format_data_frame(data_frame):
-    data_frame_head = data_frame.head(20)
+def format_data_frame(data_frame, number):
+    data_frame_head = data_frame.head(number)
     df1 = pd.DataFrame()
     df1['股票代码'] = data_frame_head['ts_code']
     df1['股票名称'] = data_frame_head['name']
@@ -89,9 +89,9 @@ def get_merge_data_frame(df_previous, df_current):
     return pd.merge(df_merge, stock_basic_data, on="ts_code", how="left")
 
 
-def print_daily_amount_difference(trade_date):
+def print_daily_amount_difference(trade_date, number):
     previous_trade_cal = get_previous_trade_cal(end_date=trade_date)
     df_previous = get_daily(trade_date=previous_trade_cal)
     df_current = get_daily(trade_date=trade_date)
     df_merge_data = get_merge_data_frame(df_previous, df_current)
-    pretty_print_all(df_merge_data)
+    pretty_print_all(df_merge_data, number)
