@@ -1,6 +1,4 @@
-import argparse
 import time
-import os
 
 import pandas as pd
 import tushare as ts
