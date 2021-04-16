@@ -1,9 +1,14 @@
-import tushare as ts
-import pandas as pd
-import matplotlib.pyplot as plt
+import argparse
 import time
+import os
+
+import pandas as pd
+import tushare as ts
+
+from stock_basic import get_stock_basic
 
 pro = ts.pro_api("4e8cf3debc133f549e0bb20a0f68baeb267947b2d099b4d17c94f923")
+# pandas 输出对齐
 pd.set_option('display.unicode.ambiguous_as_wide', True)
 pd.set_option('display.unicode.east_asian_width', True)
 
@@ -49,12 +54,15 @@ def pretty_print_all(stock_merge_data_frame):
     sorted_df_all = stock_merge_data_frame.sort_values(by='amount_difference_absolute', ascending=False)
     sorted_df_inflow = sorted_df_all[sorted_df_all.amount_difference > 0]
     sorted_df_outflow = sorted_df_all[sorted_df_all.amount_difference < 0]
+    print("\n\n")
     print("===" * 5 + "根据净变动成交量降序" + "===" * 5)
     print(format_data_frame(sorted_df_all))
     # format_data_frame(sorted_df_all).plot()
     # plt.show()
+    print("\n\n")
     print("===" * 5 + "根据净流入成交量降序" + "===" * 5)
     print(format_data_frame(sorted_df_inflow))
+    print("\n\n")
     print("===" * 5 + "根据净流出成交量降序" + "===" * 5)
     print(format_data_frame(sorted_df_outflow))
 
@@ -73,20 +81,21 @@ def format_data_frame(data_frame):
     return df1.reset_index(drop=True)
 
 
-def get_merge_data_frame():
+def get_merge_data_frame(df_previous, df_current):
     df_merge = pd.merge(df_previous, df_current, on="ts_code", how="left")
     # 当前交易日 - 上一个交易日
     amount_difference = df_merge['amount_y'] - df_merge['amount_x']
     df_merge['amount_difference'] = amount_difference
     df_merge['amount_difference_absolute'] = abs(amount_difference)
-    stock_basic_data = pro.stock_basic(list_status='L')
+    stock_basic_data = get_stock_basic.get_stock_basic_df()
     return pd.merge(df_merge, stock_basic_data, on="ts_code", how="left")
 
 
-if __name__ == '__main__':
-    trade_date = '20210415'
+def print_daily_amount_difference(trade_date):
     previous_trade_cal = get_previous_trade_cal(end_date=trade_date)
     df_previous = get_daily(trade_date=previous_trade_cal)
     df_current = get_daily(trade_date=trade_date)
-    df_merge_data = get_merge_data_frame()
+    df_merge_data = get_merge_data_frame(df_previous, df_current)
     pretty_print_all(df_merge_data)
+
+
