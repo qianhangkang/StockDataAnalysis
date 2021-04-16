@@ -60,10 +60,10 @@ def pretty_print_all(stock_merge_data_frame):
     # format_data_frame(sorted_df_all).plot()
     # plt.show()
     print("\n\n")
-    print("===" * 5 + "根据净流入成交量降序" + "===" * 5)
+    print("===" * 5 + "根据成交量净增加降序" + "===" * 5)
     print(format_data_frame(sorted_df_inflow))
     print("\n\n")
-    print("===" * 5 + "根据净流出成交量降序" + "===" * 5)
+    print("===" * 5 + "根据成交量净减少降序" + "===" * 5)
     print(format_data_frame(sorted_df_outflow))
 
 
@@ -97,5 +97,3 @@ def print_daily_amount_difference(trade_date):
     df_current = get_daily(trade_date=trade_date)
     df_merge_data = get_merge_data_frame(df_previous, df_current)
     pretty_print_all(df_merge_data)
-
-
