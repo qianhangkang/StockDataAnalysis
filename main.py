@@ -1,7 +1,7 @@
 import argparse
 import time
 
-from amount import amount_different_from_previous_day
+from amount.amount_different_from_previous_day import print_daily_amount_difference
 
 
 def main():
@@ -16,7 +16,7 @@ def main():
     if args.number:
         n = args.number
 
-    amount_different_from_previous_day.print_daily_amount_difference(str(trade_date), n)
+    print_daily_amount_difference(str(trade_date), n)
 
 
 if __name__ == '__main__':

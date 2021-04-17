@@ -3,7 +3,7 @@ import time
 import pandas as pd
 import tushare as ts
 
-from stock_basic import get_stock_basic
+from stock_basic.get_stock_basic import get_stock_basic_df
 
 pro = ts.pro_api("4e8cf3debc133f549e0bb20a0f68baeb267947b2d099b4d17c94f923")
 # pandas 输出对齐
@@ -85,7 +85,7 @@ def get_merge_data_frame(df_previous, df_current):
     amount_difference = df_merge['amount_y'] - df_merge['amount_x']
     df_merge['amount_difference'] = amount_difference
     df_merge['amount_difference_absolute'] = abs(amount_difference)
-    stock_basic_data = get_stock_basic.get_stock_basic_df()
+    stock_basic_data = get_stock_basic_df()
     return pd.merge(df_merge, stock_basic_data, on="ts_code", how="left")
 
 

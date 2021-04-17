@@ -1,7 +1,7 @@
+import os
+
 import pandas as pd
 import tushare as ts
-import os
-from importlib import resources
 
 pro = ts.pro_api("4e8cf3debc133f549e0bb20a0f68baeb267947b2d099b4d17c94f923")
 
