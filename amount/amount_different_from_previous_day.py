@@ -60,6 +60,7 @@ def format_data_frame(data_frame, number):
     df1['上一个交易日成交量（千元）'] = data_frame_head['amount_x']
     df1['当前交易日成交量（千元）'] = data_frame_head['amount_y']
     df1['相对于上一个交易日的成交额变动（千元）'] = data_frame_head['amount_difference']
+    df1['当日涨跌幅（未复权）'] = data_frame_head['pct_chg_y']
     # df1['上一个交易日成交量（千元）'] = data_frame_head['amount_x'].map(lambda x: format(x * 1000, ','))
     # df1['当前交易日成交量（千元）'] = data_frame_head['amount_y'].map(lambda x: format(x * 1000, ','))
     # df1['相对于上一个交易日的成交额变动（千元）'] = data_frame_head['amount_difference'].map(lambda x: format(x * 1000, ','))

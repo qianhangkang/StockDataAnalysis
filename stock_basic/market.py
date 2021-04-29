@@ -4,6 +4,10 @@ import tushare as ts
 
 pro = ts.pro_api("4e8cf3debc133f549e0bb20a0f68baeb267947b2d099b4d17c94f923")
 
+"""
+日线行情
+"""
+
 
 def get_daily(ts_code='', trade_date='', start_date='', end_date=''):
     for _ in range(3):
@@ -16,6 +20,11 @@ def get_daily(ts_code='', trade_date='', start_date='', end_date=''):
             time.sleep(1)
         else:
             return df
+
+
+"""
+周线行情
+"""
 
 
 def get_weekly(ts_code='', trade_date='', start_date='', end_date=''):
