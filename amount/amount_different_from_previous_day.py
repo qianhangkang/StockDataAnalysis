@@ -3,26 +3,13 @@ import time
 import pandas as pd
 import tushare as ts
 
-from stock_basic.get_stock_basic import get_stock_basic_df
+from stock_basic import market
+from stock_basic.basic import get_stock_basic_df
 
 pro = ts.pro_api("4e8cf3debc133f549e0bb20a0f68baeb267947b2d099b4d17c94f923")
 # pandas 输出对齐
 pd.set_option('display.unicode.ambiguous_as_wide', True)
 pd.set_option('display.unicode.east_asian_width', True)
-
-
-def get_daily(ts_code='', trade_date='', start_date='', end_date=''):
-    for _ in range(3):
-        try:
-            if trade_date:
-                df = pro.daily(ts_code=ts_code, trade_date=trade_date)
-            else:
-                df = pro.daily(ts_code=ts_code, start_date=start_date, end_date=end_date)
-        except:
-            time.sleep(1)
-        else:
-            return df
-
 
 """
 获取上一个交易日日期，以字符串的形式返回
@@ -91,7 +78,7 @@ def get_merge_data_frame(df_previous, df_current):
 
 def print_daily_amount_difference(trade_date, number):
     previous_trade_cal = get_previous_trade_cal(end_date=trade_date)
-    df_previous = get_daily(trade_date=previous_trade_cal)
-    df_current = get_daily(trade_date=trade_date)
+    df_previous = market.get_daily(trade_date=previous_trade_cal)
+    df_current = market.get_daily(trade_date=trade_date)
     df_merge_data = get_merge_data_frame(df_previous, df_current)
     pretty_print_all(df_merge_data, number)
