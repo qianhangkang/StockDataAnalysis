@@ -3,7 +3,7 @@ import time
 import pandas as pd
 import tushare as ts
 
-from stock_basic import market
+from stock_basic import stock
 from stock_basic.basic import get_stock_basic_df
 
 pro = ts.pro_api("4e8cf3debc133f549e0bb20a0f68baeb267947b2d099b4d17c94f923")
@@ -79,7 +79,7 @@ def get_merge_data_frame(df_previous, df_current):
 
 def print_daily_amount_difference(trade_date, number):
     previous_trade_cal = get_previous_trade_cal(end_date=trade_date)
-    df_previous = market.get_daily(trade_date=previous_trade_cal)
-    df_current = market.get_daily(trade_date=trade_date)
+    df_previous = stock.get_daily(trade_date=previous_trade_cal)
+    df_current = stock.get_daily(trade_date=trade_date)
     df_merge_data = get_merge_data_frame(df_previous, df_current)
     pretty_print_all(df_merge_data, number)
