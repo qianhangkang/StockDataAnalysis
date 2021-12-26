@@ -1,3 +1,5 @@
+import datetime as dt
+
 import pandas as pd
 from pyecharts import options as opts
 from pyecharts.charts import Kline, Bar, Grid
@@ -14,7 +16,7 @@ def get_data(count):
 
 
 def draw_charts():
-    df_merge = get_data(3650)
+    df_merge = get_data(3000)
     kline_data = pd.DataFrame(df_merge, columns=[2, 5, 4, 3]).values.tolist()
     xaxis = pd.to_datetime(df_merge[0], unit='ms').dt.strftime('%Y-%m-%d').to_list()
 
@@ -125,7 +127,7 @@ def draw_charts():
         )
             .set_series_opts(
             markline_opts=opts.MarkLineOpts(
-                data=[opts.MarkLineItem(y=10000)]
+                data=[opts.MarkLineItem(y=10000), opts.MarkLineItem(y=15000)]
             )
         )
     )
@@ -149,7 +151,8 @@ def draw_charts():
         ),
     )
 
-    grid_chart.render("证券-两市成交额对比.html")
+    title = '证券-两市成交额对比' + str(dt.date.today()) + '.html'
+    grid_chart.render(title)
     print("done")
 
 
