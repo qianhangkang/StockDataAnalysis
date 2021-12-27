@@ -74,7 +74,3 @@ def draw_charts(fanbao_dict: dict):
     )
 
     print("done ...")
-
-
-if __name__ == '__main__':
-    draw_charts(get_fanbao_dict())

@@ -79,7 +79,6 @@ def get_trade_cal(month_duration=1):
                           is_open=1)
     # 从最后开始截取
     # 返回从当前日期降序的交易日期
-    # TODO fix me
     res = list(df_tc[-month_duration * 30:]['cal_date'].values)
     res.reverse()
     return res
