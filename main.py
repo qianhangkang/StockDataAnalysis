@@ -9,7 +9,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-td", "--trade_date", help="交易日期，ex:20210415", type=int)
     parser.add_argument("-n", "--number", help="显示的数量", type=int)
-    parser.add_argument("-fanbao", help="反包股票数量")
+    parser.add_argument("fanbao", help="反包股票数量")
     args = parser.parse_args()
     trade_date = time.strftime('%Y%m%d', time.localtime(time.time()))
     n = 20
