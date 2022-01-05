@@ -18,7 +18,7 @@ def get_stock_basic_df(path='stock_basic.csv', reload=False):
 
     try:
         if os.path.exists(path):
-            df_stock_basic = pd.read_csv(path, engine='python')
+            df_stock_basic = pd.read_csv(path, engine='python', dtype={'symbol': str})
             if not df_stock_basic.empty:
                 return df_stock_basic
     except Exception:

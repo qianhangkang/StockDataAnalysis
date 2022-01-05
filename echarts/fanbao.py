@@ -76,13 +76,18 @@ def table_fanbao(fanbao_dict: dict) -> Table:
 
     headers = ["日期", "股票代码"]
     rows = []
+    # type of v is a set
     for k, v in fanbao_dict.items():
-        res = df_stock.query('symbol=="@v"')
-        code_with_name = f'{v}'
-        if len(res) > 0:
-            name = str(res.head(1)['name'])
-            code_with_name = f'{code_with_name}({name})'
-        code = ','.join(code_with_name)
+        code_with_name_set = set()
+        for code in v:
+            query_str = f'symbol=="{code}"'
+            res = df_stock.query(query_str)
+            code_with_name = f'{code}'
+            if len(res) > 0:
+                name = str(res.head(1)['name'].values[0])
+                code_with_name = f'{code_with_name}({name})'
+            code_with_name_set.add(code_with_name)
+        code = ','.join(code_with_name_set)
         item = [k, code]
         rows.append(item)
 
