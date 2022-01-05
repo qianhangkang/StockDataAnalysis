@@ -1,9 +1,11 @@
+import time
 from time import sleep
 
 from pyecharts import options as opts
 from pyecharts.charts import Line, Page
 from pyecharts.components import Table
 
+from stock_basic import basic
 from stock_basic import east_assert as eas
 from stock_basic import tushare_api as ta
 
@@ -68,19 +70,19 @@ def line_smooth(fanbao_dict: dict) -> Line:
 def table_fanbao(fanbao_dict: dict) -> Table:
     table = Table()
 
+    # 每周一强制更新一次
+    reload = int(time.strftime('%Y%m%d', time.localtime(time.time()))) % 7 == 1
+    df_stock = basic.get_stock_basic_df(reload=reload)
+
     headers = ["日期", "股票代码"]
-    # rows = [
-    #     ["Brisbane", 5905, 1857594, 1146.4],
-    #     ["Adelaide", 1295, 1158259, 600.5],
-    #     ["Darwin", 112, 120900, 1714.7],
-    #     ["Hobart", 1357, 205556, 619.5],
-    #     ["Sydney", 2058, 4336374, 1214.8],
-    #     ["Melbourne", 1566, 3806092, 646.9],
-    #     ["Perth", 5386, 1554769, 869.4],
-    # ]
     rows = []
     for k, v in fanbao_dict.items():
-        code = ','.join(v)
+        res = df_stock.query('symbol=="@v"')
+        code_with_name = f'{v}'
+        if len(res) > 0:
+            name = str(res.head(1)['name'])
+            code_with_name = f'{code_with_name}({name})'
+        code = ','.join(code_with_name)
         item = [k, code]
         rows.append(item)
 
