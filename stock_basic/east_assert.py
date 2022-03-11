@@ -90,3 +90,40 @@ def get_top(trade_date=''):
     # 格式化pool
     # 代码、名称、股价(20110->20.11)、涨幅(10.010940551757812->10.01)
     return pd.DataFrame(pool, columns=['c', 'n', 'p', 'zdp'])
+
+
+def get_count(trade_date='', zt=1):
+    # http://push2ex.eastmoney.com/getTopicDTPool?&sort=fund%3Aasc&date=20220310&_=1646899011773
+    print(f'正在获取{trade_date}涨跌停数量...')
+    s = 'ZT' if zt > 0 else 'DT'
+    sort = 'fbt:asc' if zt > 0 else 'fund:asc'
+    url = f'http://push2ex.eastmoney.com/getTopic{s}Pool'
+    params = (
+        ('ut', '7eea3edcaed734bea9cbfc24409ed989'),
+        ('dpt', 'wz.ztzt'),
+        ('Pageindex', '0'),
+        ('pagesize', '20'),
+        ('sort', sort),
+        ('date', str(trade_date)),
+    )
+    try:
+        response = requests.get(url, headers=headers, params=params,
+                                cookies=cookies, verify=False)
+        if response.status_code != 200:
+            print("获取东方财富涨跌停列表失败，errorCode=" + response.status_code)
+            return None
+
+        json = response.json()
+        data = json['data']
+        if data is None:
+            print("data is None")
+            print(response.content)
+            return 0
+
+        c = data['tc']
+        print(f'{s}的数量为{c}')
+        return c
+
+    except Exception:
+        print("error")
+        return None
