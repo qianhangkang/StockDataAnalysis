@@ -27,7 +27,3 @@ def get_zhaban_Line(yaxis_index=None):
 
 def draw_zhaban_line():
     get_zhaban_Line().render("zhaban.html")
-
-
-if __name__ == '__main__':
-    draw_zhaban_line()
