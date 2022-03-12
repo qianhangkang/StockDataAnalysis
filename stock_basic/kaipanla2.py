@@ -19,6 +19,7 @@ def get_zhaban_red_count(trade_date=''):
         j = response.json()
         res = j['list']
         s = sum(obj[6] > 0 for obj in res)
+        print(f'{trade_date}炸板第二天红盘数量={s}')
         return s
     except Exception:
         return 0
