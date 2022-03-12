@@ -22,4 +22,5 @@ def get_zhaban_red_count(trade_date=''):
         print(f'{trade_date}炸板第二天红盘数量={s}')
         return s
     except Exception:
+        print(f'获取炸板列表异常，response={response.content}')
         return 0
