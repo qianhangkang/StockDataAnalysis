@@ -33,7 +33,7 @@ def get_zhaban_count_data_list(trade_date_list):
     return y_data
 
 
-def get_mood_Line(yaxis_index=None):
+def get_mood_Line() -> Line:
     x_data = ta.get_trade_date_list()
     y1 = get_difference_with_zt_dt_data_list(x_data)
     y2 = get_zhaban_count_data_list(x_data)
@@ -41,8 +41,8 @@ def get_mood_Line(yaxis_index=None):
     c = (
         Line()
             .add_xaxis(x_data)
-            .add_yaxis("涨停数-跌停数", y1, is_smooth=True, yaxis_index=yaxis_index)
-            .add_yaxis("炸板数", y2, is_smooth=True, yaxis_index=yaxis_index)
+            .add_yaxis("涨停数-跌停数", y1, is_smooth=True)
+            .add_yaxis("炸板数", y2, is_smooth=True)
             .set_global_opts(title_opts=opts.TitleOpts(title="情绪指标"))
         # .set_global_opts(title_opts=opts.TitleOpts(title="情绪指标"),
         #                  xaxis_opts=opts.AxisOpts(type_="time"))

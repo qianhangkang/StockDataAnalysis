@@ -7,7 +7,7 @@ from stock_basic import kaipanla2 as kp
 from stock_basic import tushare_api as ta
 
 
-def get_zhaban_Line(yaxis_index=None):
+def get_zhaban_Line() -> Line:
     x_data = ta.get_trade_cal()
     x_data.reverse()
     y_data = []
@@ -19,7 +19,7 @@ def get_zhaban_Line(yaxis_index=None):
     c = (
         Line()
             .add_xaxis(x_data)
-            .add_yaxis("炸板第二天红盘数", y_data, is_smooth=True, yaxis_index=yaxis_index)
+            .add_yaxis("炸板第二天红盘数", y_data, is_smooth=True)
             .set_global_opts(title_opts=opts.TitleOpts(title="炸板第二天红盘数"))
     )
     return c
