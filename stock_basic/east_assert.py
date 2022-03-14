@@ -92,6 +92,12 @@ def get_top(trade_date=''):
     return pd.DataFrame(pool, columns=['c', 'n', 'p', 'zdp'])
 
 
+"""
+获取涨跌停股票数量
+@:param zt 1涨停（默认），0跌停
+"""
+
+
 def get_count(trade_date='', zt=1):
     # http://push2ex.eastmoney.com/getTopicDTPool?&sort=fund%3Aasc&date=20220310&_=1646899011773
     print(f'正在获取{trade_date}涨跌停数量...')
@@ -127,3 +133,32 @@ def get_count(trade_date='', zt=1):
     except Exception:
         print("error")
         return None
+
+
+"""
+获取炸板股数量
+"""
+
+
+def get_zhaban_count(trade_date=''):
+    print(f'正在获取日期={trade_date}的炸板股数量...')
+    params = (
+        ('ut', '7eea3edcaed734bea9cbfc24409ed989'),
+        ('dpt', 'wz.ztzt'),
+        ('Pageindex', '0'),
+        ('pagesize', '20'),
+        ('sort', 'fbt:asc'),
+        ('date', str(trade_date)),
+        ('_', '1647250510597'),
+    )
+    response = requests.get('http://push2ex.eastmoney.com/getTopicZBPool', headers=headers, params=params,
+                            cookies=cookies, verify=False)
+    try:
+        j = response.json()
+        d = j['data']
+        c = d['tc']
+        print(f'炸板股数量={c}')
+        return c
+    except Exception:
+        print(f'获取失败，content={response.content}')
+        return 0
