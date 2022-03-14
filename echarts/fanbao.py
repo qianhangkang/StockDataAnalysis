@@ -107,7 +107,7 @@ def get_fanbao_page() -> Page:
     )
     return page
 
-def draw_charts(fanbao_dict: dict):
+def draw_charts():
     print("draw chrats...")
     page = get_fanbao_page()
     page.render('line_smooth.html')
