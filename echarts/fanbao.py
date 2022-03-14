@@ -96,17 +96,19 @@ def table_fanbao(fanbao_dict: dict) -> Table:
     )
     return table
 
-
-def draw_charts(fanbao_dict: dict):
+def get_fanbao_page() -> Page:
+    fanbao_dict = get_fanbao_dict()
     line = line_smooth(fanbao_dict)
     table = table_fanbao(fanbao_dict)
-    print("draw chrats...")
-
     page = Page(layout=Page.SimplePageLayout)
     page.add(
         line,
         table
     )
-    page.render('line_smooth.html')
+    return page
 
+def draw_charts(fanbao_dict: dict):
+    print("draw chrats...")
+    page = get_fanbao_page()
+    page.render('line_smooth.html')
     print("done ...")
