@@ -40,7 +40,7 @@ def get_fanbao_dict():
     return fanbao_dict
 
 
-def line_smooth(fanbao_dict: dict) -> Line:
+def get_fanbao_line(fanbao_dict: dict) -> Line:
     x_data = []
     y_data = []
     for k, v in fanbao_dict.items():
@@ -67,7 +67,7 @@ def line_smooth(fanbao_dict: dict) -> Line:
     return c
 
 
-def table_fanbao(fanbao_dict: dict) -> Table:
+def get_fanbao_stock_table(fanbao_dict: dict) -> Table:
     table = Table()
 
     # 每周一强制更新一次
@@ -98,8 +98,8 @@ def table_fanbao(fanbao_dict: dict) -> Table:
 
 def get_fanbao_page() -> Page:
     fanbao_dict = get_fanbao_dict()
-    line = line_smooth(fanbao_dict)
-    table = table_fanbao(fanbao_dict)
+    line = get_fanbao_line(fanbao_dict)
+    table = get_fanbao_stock_table(fanbao_dict)
     page = Page(layout=Page.SimplePageLayout)
     page.add(
         line,
