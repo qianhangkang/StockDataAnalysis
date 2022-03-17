@@ -56,7 +56,7 @@ def get_fanbao_line(fanbao_dict: dict) -> Line:
             .add_yaxis("反包股票个数", y_data, is_smooth=True)
             .set_series_opts()
             .set_global_opts(
-            title_opts=opts.TitleOpts(title="Line-smooth"),
+            title_opts=opts.TitleOpts(title="更新时间：11：35 & 15：03"),
             yaxis_opts=opts.AxisOpts(
                 type_="value",
                 axistick_opts=opts.AxisTickOpts(is_show=True),
