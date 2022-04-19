@@ -91,6 +91,6 @@ ex['20220314','20220311','20220310]
 
 
 def get_trade_date_list(month_duration=1):
-    x_data = get_trade_cal()
+    x_data = get_trade_cal(month_duration)
     x_data.reverse()
     return x_data
