@@ -8,7 +8,7 @@ from stock_basic import tushare_api as ta
 
 
 def get_zhaban_Line() -> Line:
-    x_data = ta.get_trade_cal()
+    x_data = ta.get_trade_cal(month_duration=3)
     x_data.reverse()
     y_data = []
     for trade_date in x_data:

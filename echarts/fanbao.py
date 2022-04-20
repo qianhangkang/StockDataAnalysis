@@ -11,7 +11,7 @@ from stock_basic import tushare_api as ta
 
 
 def get_fanbao_dict():
-    tc_list = ta.get_trade_cal(1)
+    tc_list = ta.get_trade_cal(3)
     tc_list_len = len(tc_list)
     stock_dict = {}
     # 获取涨停

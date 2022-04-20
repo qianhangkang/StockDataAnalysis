@@ -34,7 +34,7 @@ def get_zhaban_count_data_list(trade_date_list):
 
 
 def get_mood_Line() -> Line:
-    x_data = ta.get_trade_date_list()
+    x_data = ta.get_trade_date_list(month_duration=3)
     y1 = get_difference_with_zt_dt_data_list(x_data)
     y2 = get_zhaban_count_data_list(x_data)
 
